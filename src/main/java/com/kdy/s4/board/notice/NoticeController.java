@@ -19,7 +19,16 @@ public class NoticeController {
 	@Autowired
 	private NoticeService noticeService;
 	
-	@RequestMapping("noticeSelect")
+	@GetMapping("noticeUpdate")
+	private ModelAndView setUpdate(BoardDTO boardDTO) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		
+		boardDTO = noticeService.getOne(boardDTO);
+		
+		return mv;
+	}
+	
+	@GetMapping("noticeSelect")
 	public ModelAndView getOne(BoardDTO boardDTO) throws Exception {
 		ModelAndView mv = new ModelAndView();
 		
