@@ -5,7 +5,7 @@
     
     <mapper namespace="com.kdy.s4.board.qna.QnaDAO">
     
-    	<select id="qnaList" parameterType="Pager" resultType="QnaDTO">
+    	<select id="getList" parameterType="Pager" resultType="QnaDTO">
     		select * from
 			(select rownum R, N.* from 
 			(select * from qna where 
@@ -25,7 +25,7 @@
 		
     	</select>
     	
-	<select id="qnaCount" resultType="Long" parameterType="Pager">
+	<select id="getCount" resultType="Long" parameterType="Pager">
 		select count(num) from qna
 		where 
 		<choose>
@@ -42,7 +42,7 @@
 		like '%'||#{search}||'%'
 	</select>    	
     
-    	<insert id="qnaWrite" parameterType="QnaDTO">
+    	<insert id="setInsert" parameterType="QnaDTO">
     		insert into qna values(qna_seq.nextval, 
 			#{title}, #{writer}, #{contents}, sysdate, 0, qna_seq.currval, 0, 0)
 		</insert>
@@ -56,7 +56,7 @@
 			update qna set step = step+1 where ref=#{ref} and step>#{step}
 		</update>
 		
-		<select id="qnaSelect" parameterType="QnaDTO" resultType="QnaDTO">
+		<select id="getOne" parameterType="QnaDTO" resultType="QnaDTO">
 			select * from qna where num = #{num}
 		</select>
     

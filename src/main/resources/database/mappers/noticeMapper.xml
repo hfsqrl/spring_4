@@ -5,23 +5,23 @@
     
 <mapper namespace="com.kdy.s4.board.notice.NoticeDAO">
 
-	<update id="noticeUpdate" parameterType="NoticeDTO"> <!-- gettitle을 들고옴 -->
+	<update id="setUpdate" parameterType="NoticeDTO"> <!-- gettitle을 들고옴 -->
 		update board set title = #{title}, contents = #{contents} where num = #{num}
 	</update>
 
-	<delete id="noticeDelete" parameterType="NoticeDTO"> <!-- long type class에서 getnum을 들고 오려 할 수도 있음(버그인듯), NoticeDTO로 변경 -->
+	<delete id="setDelete" parameterType="NoticeDTO"> <!-- long type class에서 getnum을 들고 오려 할 수도 있음(버그인듯), NoticeDTO로 변경 -->
 		delete board where num = #{num}
 	</delete>
 	
-	<select id="noticeSelect" parameterType="NoticeDTO" resultType="QnaDTO">
+	<select id="getOne" parameterType="NoticeDTO" resultType="QnaDTO">
 		select * from board where num = #{num}
 	</select>
 	
-	<insert id="noticeWrite" parameterType="NoticeDTO">
+	<insert id="setInsert" parameterType="NoticeDTO">
 		insert into board values(notice.nextval, #{title}, #{writer}, #{contents}, sysdate, 0)
 	</insert>
 
-	<select id="noticeList" resultType="NoticeDTO" parameterType="Pager">
+	<select id="getList" parameterType="Pager" resultType="NoticeDTO">
 		select * from
 		(select rownum R, N.* from 
 		(select * from board where 
@@ -41,7 +41,7 @@
 		
 	</select>
 	
-	<select id="noticeCount" resultType="Long" parameterType="Pager">
+	<select id="getCount" resultType="Long" parameterType="Pager">
 		select count(num) from board
 		where 
 		<choose>
