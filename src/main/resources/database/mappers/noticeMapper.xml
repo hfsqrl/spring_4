@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.kdy.s4.board.notice.NoticeDAO">
+
+	<update id="noticeUpdate" parameterType="NoticeDTO"> <!-- gettitle을 들고옴 -->
+		update board set title = #{title}, contents = #{contents} where num = #{num}
+	</update>
+
+	<delete id="noticeDelete" parameterType="NoticeDTO"> <!-- long type class에서 getnum을 들고 오려 할 수도 있음(버그인듯), NoticeDTO로 변경 -->
+		delete board where num = #{num}
+	</delete>
+	
+	<select id="noticeSelect" parameterType="NoticeDTO" resultType="QnaDTO">
+		select * from board where num = #{num}
+	</select>
+	
+	<insert id="noticeWrite" parameterType="NoticeDTO">
+		insert into board values(notice.nextval, #{title}, #{writer}, #{contents}, sysdate, 0)
+	</insert>
+
+	<select id="noticeList" resultType="NoticeDTO" parameterType="Pager">
+		select * from
+		(select rownum R, N.* from 
+		(select * from board where 
+		<choose>
+			<when test="kind == 'tt'">
+				title
+			</when>
+			<when test="kind =='wr'">
+				writer
+			</when>
+			<otherwise>
+				contents
+			</otherwise>
+		</choose>
+		like '%'||#{search}||'%' order by num desc) N)
+		where R between #{startRow} and #{lastRow}
+		
+	</select>
+	
+	<select id="noticeCount" resultType="Long" parameterType="Pager">
+		select count(num) from board
+		where 
+		<choose>
+			<when test="kind == 'tt'">
+				title
+			</when>
+			<when test="kind == 'wr'">
+				writer
+			</when>
+			<otherwise>
+				contents
+			</otherwise>
+		</choose>
+		like '%'||#{search}||'%'
+	</select>
+	
+</mapper>
