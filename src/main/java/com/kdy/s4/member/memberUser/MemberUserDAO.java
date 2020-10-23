@@ -12,7 +12,7 @@ public class MemberUserDAO implements MemberDAO {
 	
 	@Autowired
 	private SqlSession sqlSession;
-	private final String NAMESPACE="com.kdy.s4.member.memberUser.MemberUserDAO";
+	private final String NAMESPACE="com.kdy.s4.member.memberUser.MemberUserDAO.";
 
 	@Override
 	public MemberDTO getMemberLogin(MemberDTO memberDTO) throws Exception {

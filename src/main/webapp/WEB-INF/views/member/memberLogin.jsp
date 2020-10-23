@@ -12,24 +12,21 @@
 <c:import url="../template/header.jsp"></c:import>
 
 <div class="container">
-
-	<h1>Member Login Page</h1>
-	
-  <form action="/memberLogin" method="post">
-    <div class="form-group">
-      <label for="id">Email:</label>
-      <input type="text" class="form-control" id="id" placeholder="Enter id" name="id">
-    </div>
-    <div class="form-group">
-      <label for="pw">Password:</label>
-      <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pw">
-    </div>
-    <div class="checkbox">
-      <label><input type="checkbox" name="remember"> Remember me</label>
-    </div>
-    <button type="submit" class="btn btn-default">Submit</button>
+	<h3>Member Login Page</h3>
+	<form action="/memberLogin" method="post">
+	    <div class="form-group">
+	      <label for="id">Id:</label>
+	      <input type="text" class="form-control" id="id" placeholder="Enter Id" name="id">
+	    </div>
+	    <div class="form-group">
+	      <label for="pw">Password:</label>
+	      <input type="password" class="form-control" id="pw" placeholder="Enter password" name="pw">
+	    </div>
+	    <div class="checkbox">
+	      <label><input type="checkbox" name="remember"> Remember me</label>
+	    </div>
+	    <button type="submit" class="btn btn-default">Submit</button>
   </form>
-
 </div>
 
 </body>
