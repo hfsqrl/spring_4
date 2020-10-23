@@ -12,6 +12,9 @@
 		<typeAlias type="com.kdy.s4.board.notice.NoticeDTO" alias="NoticeDTO"/>
 		<typeAlias type="com.kdy.s4.board.qna.QnaDTO" alias="QnaDTO"/>
 		<typeAlias type="com.kdy.s4.util.Pager" alias="Pager"/>
+		<typeAlias type="com.kdy.s4.member.MemberDTO" alias="MemberDTO"/>
+		<typeAlias type="com.kdy.s4.member.memberUser.MemberUserDTO" alias="MemberUserDTO"/>
+		
 		
 	</typeAliases>
 </configuration>
