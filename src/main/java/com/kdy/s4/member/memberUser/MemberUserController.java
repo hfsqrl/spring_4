@@ -18,6 +18,80 @@ public class MemberUserController {
 	
 	@Autowired
 	private MemberUserService memberUserService;
+
+	// join
+	@GetMapping("memberJoin")
+	public ModelAndView setMemberJoin() throws Exception {
+		ModelAndView mv = new ModelAndView();
+		
+		mv.setViewName("member/memberJoin");
+		return mv;
+	}
+	
+	
+	@PostMapping("memberJoin")
+	public ModelAndView setMemberJoin(MemberDTO memberDTO) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		
+		int result = memberUserService.setMemberJoin(memberDTO);
+		
+		mv.setViewName("redirect:../");
+		
+		return mv;
+	}
+	
+	// setMemberDelete
+	@GetMapping("memberDelete")
+	public ModelAndView setMemberDelete(HttpSession session) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		
+		MemberDTO memberDTO = (MemberDTO)session.getAttribute("member");
+		int result = memberUserService.setMemberDelete(memberDTO);
+		
+		session.invalidate();
+		mv.setViewName("redirect:../");
+		
+		return mv;
+	}
+	
+	// setMemberUpdate
+	@GetMapping("memberUpdate")
+	public ModelAndView setMemberUpdate() throws Exception {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("member/memberUpdate");
+		
+		return mv;
+	}
+	
+	@PostMapping("memberUpdate")
+	public ModelAndView setMemberUpdate(MemberDTO memberDTO, HttpSession session) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		MemberDTO s = (MemberDTO)session.getAttribute("member");
+		memberDTO.setId(s.getId());
+		System.out.println(memberDTO.getEmail());
+		System.out.println(memberDTO.getName());
+		System.out.println(memberDTO.getId());
+		int result = memberUserService.setMemberUpdate(memberDTO);
+		
+		if(result>0) {
+			s.setName(memberDTO.getName());
+			s.setEmail(memberDTO.getEmail());
+			session.setAttribute("member", s);
+		} 
+		
+		mv.setViewName("redirect:./memberPage");
+		
+		return mv;
+	}
+	
+	// getMemberPage
+	@GetMapping("memberPage")
+	public ModelAndView getMemberPage() throws Exception {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("member/memberPage");
+		
+		return mv;
+	}
 	
 	// memberLogout
 	@GetMapping("memberLogout")
@@ -26,7 +100,7 @@ public class MemberUserController {
 		// 일정시간 경과
 		// memberDTO를 null로 대체
 		// 세션 유지 시간을 강제로 0으로 변경
-		session.invalidate();
+		session.invalidate(); // 세션 유지 시간을 강제로 0으로 변경
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("redirect:../");
 		return mv;

@@ -5,26 +5,25 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>member login</title>
+<title>member update page</title>
 <c:import url="../template/bootstrap.jsp"></c:import>
 </head>
 <body>
 <c:import url="../template/header.jsp"></c:import>
 
 <div class="container">
-	<h3>Member Login Page</h3>
-	<form action="./memberLogin" method="post">
+	<h3>Member Update Form</h3>
+	<form action="./memberUpdate" method="post">
 	    <div class="form-group">
-	      <label for="id">Id:</label>
-	      <input type="text" class="form-control" id="id" placeholder="Enter Id" name="id">
+	      <label for="name">Name:</label>
+	      <input type="text" class="form-control" value="${member.name}" id="name" name="name">
 	    </div>
+	    
 	    <div class="form-group">
-	      <label for="pw">Password:</label>
-	      <input type="password" class="form-control" id="pw" placeholder="Enter password" name="pw">
+	      <label for="email">Email:</label>
+	      <input type="text" class="form-control" value="${member.email}" id="email" name="email">
 	    </div>
-	    <div class="checkbox">
-	      <label><input type="checkbox" name="remember"> Remember me</label>
-	    </div>
+	    
 	    <button type="submit" class="btn btn-default">Submit</button>
   </form>
 </div>

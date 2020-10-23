@@ -11,7 +11,25 @@ public class MemberUserService implements MemberService {
 	
 	@Autowired
 	private MemberUserDAO memberUserDAO;
-
+	
+	@Override
+	public int setMemberJoin(MemberDTO memberDTO) throws Exception {
+		// TODO Auto-generated method stub
+		return memberUserDAO.setMemberJoin(memberDTO);
+	}
+	
+	@Override
+	public int setMemberDelete(MemberDTO memberDTO) throws Exception {
+		// TODO Auto-generated method stub
+		return memberUserDAO.setMemberDelete(memberDTO);
+	}
+	
+	@Override
+	public int setMemberUpdate(MemberDTO memberDTO) throws Exception {
+		// TODO Auto-generated method stub
+		return memberUserDAO.setMemberUpdate(memberDTO);
+	}
+	
 	@Override
 	public MemberDTO getMemberLogin(MemberDTO memberDTO) throws Exception {
 		// TODO Auto-generated method stub
