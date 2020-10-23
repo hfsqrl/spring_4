@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.kdy.s4.member.memberUser.MemberUserDAO">
+
+	<insert id="setMemberJoin" parameterType="MemberDTO">
+		insert into member values(member_seq.nextval, #{id}, #{pw}, #{name}, #{email})
+	</insert>
+
+	<delete id="setMemberDelete" parameterType="MemberDTO">
+		delete member where id=#{id}
+	</delete>
+
+	<update id="setMemberUpdate" parameterType="MemberDTO">
+		update member set name=#{name}, email=#{email} where id=#{id}
+	</update>
+
+	<select id="getMemberLogin" parameterType="MemberDTO" resultType="MemberUserDTO">
+		select * from member where id=#{id} and pw=#{pw}
+	</select>
+	
+</mapper>
