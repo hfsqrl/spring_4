@@ -33,30 +33,47 @@
 	    
 	</div>
 	
-	<div id="result"></div>
+	<div>
+		<table id="result" class="table table-border">
+		</table>
+	</div>
 	
-	<button class="btn btn-primary del">더보기</button>
+	<button class="btn btn-danger" id="more">더보기</button>
 	
 </div>
 
 <script type="text/javascript">
+	var curPage = 1
 	getList()
+	
+	// ============= more ============
+		$("#more").click(function(){
+			curPage++
+			getList()
+		})
 	
 	// =============delete===========================
 		
 	$("#result").on("click", ".del", function(){
 		var num = $(this).attr("title")
-		alert(num)
 		
-		$.post("./memoDelete", {num:num}, function (data) {
-			data = data.trim()
-			alert(data)
-			if(data>0) {
-				getList()
-			} else {
-				alert("delete fail")
+		$.ajax({
+			url:"./memoDelete",
+			type:"POST",
+			data:{num:num},
+			success:function(data){
+				data = data.trim()
+				
+				if(data>0) {
+					$("#result").html('')
+					curPage = 1
+					getList()
+				} else {
+					alert("delete fail")
+				}
 			}
 		})
+		
 		
 	})
 	
@@ -66,21 +83,38 @@
 		var writer = $("#writer").val()
 		var contents = $("#contents").val()
 		
-		$.post("./memoWrite",{writer:writer, contents:contents}/*파라미터이름:변수명*/, function(result){
-			alert(result)
-			$("#writer").val('')
-			$("#contents").val('')
-			getList()
+		$.ajax({
+			url:"./memoWrite",
+			type:"POST",
+			data: {
+				writer:writer,
+				contents:contents
+			},
+			success: function(result){
+				alert(result)
+				$("#writer").val('')
+				$("#contents").val('')
+				$("#result").html('')
+				curPage = 1
+				getList()
+			}
 		})
+		
 	})
 	
 	// ========================================
 		
-	function getList(){
-		var list = $("#btn").val()
-		$.get("./memoList", function(data){
-			$("#result").html(data)
+	function getList() {
+		
+		$.ajax({
+			url:"./memoList",
+			type:"get",
+			data:{curPage:curPage},
+			success: function(data){
+				$("#result").append(data)
+			}
 		})
+		
 	}
 	
 </script>
