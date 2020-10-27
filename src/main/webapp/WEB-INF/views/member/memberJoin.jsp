@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<c:import url="../template/bootstrap.jsp"></c:import>
 <style type="text/css">
 	.idCheck0 {
 		color: blue;
@@ -15,10 +16,8 @@
 		color: red;
 	}
 </style>
-<c:import url="../template/bootstrap.jsp"></c:import>
 </head>
 <body>
-
 <c:import url="../template/header.jsp"></c:import>
 <div class="container">
 	<h3>Member Join Page</h3>
@@ -31,22 +30,23 @@
 	    <div class="form-group">
 	      <label for="pw">Password:</label>
 	      <input type="password" class="form-control" id="pw" placeholder="Enter password" name="pw">
-	      
 	    </div>
-	    <div class="form-group">
+	     <div class="form-group">
 	      <label for="pw">Password:</label>
 	      <input type="password" class="form-control" id="pw2" placeholder="Enter password" name="pw2">
 	      <div id="pwResult"></div>
 	    </div>
 	    
-	    <div class="form-group">
+	   <div class="form-group">
 	      <label for="name">Name:</label>
-	      <input type="text" class="form-control" id="name" placeholder="Enter name" name="name">
+	      <input type="text" class="form-control empty" id="name" placeholder="Enter name" name="name">
+	      <div class="emptyResult"></div>
 	    </div>
 	    
-	    <div class="form-group">
+	   <div class="form-group">
 	      <label for="email">Email:</label>
-	      <input type="text" class="form-control" id="email" placeholder="Enter Email" name="email">
+	      <input type="text" class="form-control empty" id="email" placeholder="Enter Email" name="email">
+	      <div class="emptyResult"></div>
 	    </div>
 	    
 	    <input type="button" value="Join" class="btn btn-default" id="join">
@@ -55,73 +55,89 @@
 </div>
 
 <script type="text/javascript">
-
-// ============= join ==============
-	var idCheck = false
-	var pwCheck = false
-	
+	var idCheck=false;
+	var pwCheck=false;
+	var emptyCheckResult = true;
 	$("#join").click(function() {
-		if(idCheck && pwCheck) {
-		// 중복체크하고, 사용 가능한 id
-			alert("Join")
-		} else {
-		// 중복체크 하지 않거나, 사용 불가능한 id
-			alert("no")
-		// $("#frm").submit()
+		emptyCheck();
+		if(idCheck && pwCheck && emptyCheckResult){
+			//중복체크했고, 사용가능한 ID
+			$("#frm").submit();
 		}
+		//else {
+			//중복체크를 안했거나, 사용불가능한 ID
+		//	alert("No");
+		//}
+		
+		
 	});
-
-// ============= id check ===============
 	
-	$("#id").blur(function(){
-		var id = $(this).val()
-		idCheck = false
+	//********** empty check *********
+	function emptyCheck() {
+		emptyCheckResult=true;
+		$(".emptyResult").removeClass("idCheck1");
+		$(".emptyResult").html('');
+		$(".empty").each(function() {
+			var data = $(this).val();
+			if(data==''){
+				emptyCheckResult=false;
+				$(this).next().html("필수 항목입니다");
+				$(".emptyResult").addClass("idCheck1");
+			}
+		});
+	}
+	
+	
+	//**********  pw check   **********
+	$("#pw2").blur(function() {
+		var pw = $("#pw").val();
+		var pw2 = $(this).val();
+		pwCheck=false;
 		
-		if(id != '') {
-			$.get("./memberIdCheck?id="+id, function(data) {
-				// 0 사용가능, 1 사용불가
-				data=data.trim()
-				/*   */
-				var str = "중복된 ID 입니다."
+		if(pw2==''){
+			$("#pwResult").html("Password를 입력하세요");
+			$("#pwResult").removeClass("idCheck0").addClass("idCheck1");
+		} else if(pw == pw2){
+			$("#pwResult").html("Password가 일치 합니다");
+			$("#pwResult").removeClass("idCheck1").addClass("idCheck0");
+			pwCheck=true;
+		}else {
+			$("#pwResult").html("Password가 일치 하지 않습니다");
+			$("#pwResult").removeClass("idCheck0").addClass("idCheck1");
+		}
+		
+		
+	});
+	
+	
+	//********** id check **************
+	$("#id").blur(function() {
+		idCheck=false;
+		var id = $(this).val();
+		if(id != ''){
+			$.get("./memberIdCheck?id="+id,function(data){
+				//a 사용가능, b 사용불가
+				//true 사용가능 false 사용불가
+				//0 사용가능 	1 사용불가
+				data=data.trim();
+				var str = "중복된 ID 입니다";
 				
-				$("#idResult").addClass("idCheck1")
-				$("#idResult").removeClass("idCheck1=0").addClass("idCheck1")
-				
+				$("#idResult").removeClass("idCheck0").addClass("idCheck1");
 				if(data==0){
-					str = "사용 가능한 ID입니다."
-					$("#idResult").removeClass("idCheck1").addClass("idCheck0")
-					idCheck = true
-				} 
+					str = "사용 가능한 ID 입니다"
+					$("#idResult").removeClass("idCheck1").addClass("idCheck0");
+					idCheck=true;
+				}
+				$("#idResult").html(str);
 				
-				$("#idResult").html(str)
-				
-			})
-		} else {
-			$("#idResult").html("id는 필수항목입니다.")
-			$("#idResult").removeClass("idCheck1=0").addClass("idCheck1")
-		}
-	})
-	
-	// =============== pw check ================
-	
-	$("#pw2").blur(function (){
-		var pw = $("#pw").val()
-		var pw2 = $(this).val()
-		pwCheck = false
-		
-		if(pw == '') {
-			$("#pwResult").html("password를 입력하세요.");
-			$("#pwResult").removeClass("idCheck0").addClass("idCheck1")
-		} else if(pw == pw2) {
-			$("#pwResult").html("password가 일치합니다.");
-			$("#pwResult").removeClass("idCheck1").addClass("idCheck0")
-			pwCheck = true
-		} else {
-			$("#pwResult").html("password가 일치 하지 않습니다.");
-			$("#pwResult").removeClass("idCheck0").addClass("idCheck1")
+			});
+		}else {
+			$("#idResult").html("Id는 필수 항목입니다");
+			$("#idResult").removeClass("idCheck0").addClass("idCheck1");
 		}
 		
-	})
+	});
 </script>
+
 </body>
 </html>
