@@ -21,7 +21,7 @@
 <c:import url="../template/header.jsp"></c:import>
 <div class="container">
 	<h3>Member Join Page</h3>
-	<form action="./memberJoin" method="post" id="frm">
+	<form action="./memberJoin" method="post" id="frm" enctype="multipart/form-data">
 	    <div class="form-group">
 	      <label for="id">Id:</label>
 	      <input type="text" class="form-control" id="id" placeholder="Enter Id" name="id">
@@ -46,6 +46,12 @@
 	   <div class="form-group">
 	      <label for="email">Email:</label>
 	      <input type="text" class="form-control empty" id="email" placeholder="Enter Email" name="email">
+	      <div class="emptyResult"></div>
+	    </div>
+	    
+	    <div class="form-group">
+	      <label for="photo">Photo:</label>
+	      <input type="file" class="form-control" id="photo" name="photo">
 	      <div class="emptyResult"></div>
 	    </div>
 	    
