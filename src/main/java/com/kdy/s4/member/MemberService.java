@@ -2,6 +2,8 @@ package com.kdy.s4.member;
 
 public interface MemberService {
 	
+	public MemberDTO getMemberIdCheck(MemberDTO memberDTO) throws Exception;
+	
 	public MemberDTO getMemberLogin(MemberDTO memberDTO) throws Exception;
 	
 	public int setMemberUpdate(MemberDTO memberDTO) throws Exception;

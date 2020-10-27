@@ -2,6 +2,9 @@ package com.kdy.s4.member;
 
 public interface MemberDAO {
 	
+	// idcheck
+	public MemberDTO getMemberIdCheck(MemberDTO memberDTO) throws Exception;
+	
 	// join
 	public int setMemberJoin(MemberDTO memberDTO) throws Exception;
 	
