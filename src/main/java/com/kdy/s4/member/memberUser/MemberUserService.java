@@ -13,6 +13,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.kdy.s4.member.MemberDTO;
 import com.kdy.s4.member.MemberService;
+import com.kdy.s4.member.memberFile.MemberFileDAO;
+import com.kdy.s4.member.memberFile.MemberFileDTO;
 import com.kdy.s4.util.FileSaver;
 
 @Service
@@ -20,6 +22,8 @@ public class MemberUserService implements MemberService {
 	
 	@Autowired
 	private MemberUserDAO memberUserDAO;
+	@Autowired
+	private MemberFileDAO MemberFileDAO;
 	@Autowired
 	private FileSaver fileSaver;
 	
@@ -37,9 +41,25 @@ public class MemberUserService implements MemberService {
 		System.out.println(path);
 		File file = new File(path);
 		
-		//fileSaver.saveCopy(file, photo);
-		fileSaver.saveCopy(file, photo);
+		String fileName = fileSaver.saveCopy(file, photo);
 		
+		//fileSaver.saveCopy(file, photo);
+		MemberFileDTO memberFileDTO = new MemberFileDTO();
+		memberFileDTO.setId(memberDTO.getId());
+		memberFileDTO.setFileName(fileName);
+		memberFileDTO.setOriName(photo.getOriginalFilename());
+		
+		System.out.println("test"); // 중간 테스트
+		
+		int result = memberUserDAO.setMemberJoin(memberDTO);
+		
+		System.out.println(result); // 중간 테스트
+		
+		result = MemberFileDAO.setInsert(memberFileDTO);
+		
+		System.out.println("test : "+result); // 중간 테스트
+		
+		return result;
 		
 		
 //		// 이름 > 중복될 수 없는 이름
@@ -73,7 +93,6 @@ public class MemberUserService implements MemberService {
 		 > FileCopyUtils(소스, 목적지) 라는 객체의 메서드 활용해서 만든 경로에 저장
 		*/
 		
-		return 0; //memberUserDAO.setMemberJoin(memberDTO);
 	}
 	
 	@Override
