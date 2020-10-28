@@ -38,11 +38,19 @@ public class MemberUserService implements MemberService {
 		// hdd 어느 폴더에 어떤 이름으로 저장을 할거냐 > 경로명을 써야 > 워크스페이스 실제 경로명?
 		// path : 저장할 폴더 경로, 이클립스에서 만든 경로와 동일하게. src/main/webapp을 제외하고
 		String path = session.getServletContext().getRealPath("/resources/upload/member");
+		// getRealPath - 하고 있는 프로젝트가 hdd어디에 저장 되어 있냐
+		// 파일을 저장하기 위한 폴더를 지정하기 위해 getRealPath를 이용. 어느 컴퓨터에 있든, 정확한 위치를 반환 할 수 있도록
+		File file2 = new File(path);
+		if(!file2.exists()) {
+			file2.mkdirs();
+		}
 		System.out.println(path);
 		File file = new File(path);
-		
+
+		// 이름 > 중복될 수 없는 이름
 		String fileName = fileSaver.saveCopy(file, photo);
-		
+
+		// hdd 저장
 		//fileSaver.saveCopy(file, photo);
 		MemberFileDTO memberFileDTO = new MemberFileDTO();
 		memberFileDTO.setId(memberDTO.getId());

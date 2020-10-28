@@ -51,14 +51,14 @@ public class MemberUserController {
 	public ModelAndView setMemberJoin(MemberDTO memberDTO, MultipartFile photo, HttpSession session) throws Exception {
 		ModelAndView mv = new ModelAndView();
 
-//		System.out.println(photo.getOriginalFilename());
-//		System.out.println(photo.getName());
-//		System.out.println(photo.getSize());
-//		System.out.println(photo.getContentType());
+		System.out.println(photo.getOriginalFilename());
+		System.out.println(photo.getName());
+		System.out.println(photo.getSize());
+		System.out.println(photo.getContentType());
 		
-		System.out.println(memberDTO.getId());
-		System.out.println(memberDTO.getPw());
-		System.out.println(memberDTO.getName());
+//		System.out.println(memberDTO.getId());
+//		System.out.println(memberDTO.getPw());
+//		System.out.println(memberDTO.getName());
 		
 		int result = memberUserService.setMemberJoin(memberDTO, photo, session);
 		

@@ -17,6 +17,5 @@
 		<typeAlias type="com.kdy.s4.member.memberUser.MemberUserDTO" alias="MemberUserDTO"/>
 		<typeAlias type="com.kdy.s4.member.memberFile.MemberFileDTO" alias="MemberFileDTO"/>
 		
-		
 	</typeAliases>
 </configuration>
