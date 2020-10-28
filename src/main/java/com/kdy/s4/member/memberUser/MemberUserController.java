@@ -48,7 +48,7 @@ public class MemberUserController {
 	
 	
 	@PostMapping("memberJoin")
-	public ModelAndView setMemberJoin(MemberDTO memberDTO, MultipartFile photo) throws Exception {
+	public ModelAndView setMemberJoin(MemberDTO memberDTO, MultipartFile photo, HttpSession session) throws Exception {
 		ModelAndView mv = new ModelAndView();
 
 		System.out.println(photo.getOriginalFilename());
@@ -56,7 +56,7 @@ public class MemberUserController {
 		System.out.println(photo.getSize());
 		System.out.println(photo.getContentType());
 		
-		//int result = memberUserService.setMemberJoin(memberDTO);
+		int result = memberUserService.setMemberJoin(memberDTO, photo, session);
 		
 		mv.setViewName("redirect:../");
 		

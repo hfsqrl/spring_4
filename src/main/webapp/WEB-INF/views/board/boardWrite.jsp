@@ -31,6 +31,11 @@
 	      <textarea class="form-control" rows="10" id="contents" name="contents"></textarea>
 	    </div>
 	    
+	    <div class="form-group">
+	      <label for="files">File:</label>
+	      <input type="file" class="form-control" id="file" name="files">
+	    </div>
+	    
 	    <input type="button" class="btn btn-primary" value="Write" id="btn">
 	    <button type="submit" class="btn btn-default">Write</button>
 	  </form>
