@@ -16,8 +16,8 @@ public class MemberFileDAOTest extends MyTestCase {
 	public void setInsertTest() throws Exception {
 		MemberFileDTO memberFileDTO = new MemberFileDTO();
 		memberFileDTO.setId("id2");
-		memberFileDTO.setFileName("test file name");
-		memberFileDTO.setOriName("test ori name");
+		memberFileDTO.setfileName("test file name");
+		memberFileDTO.setoriName("test ori name");
 		
 		int result = memberFileDAO.setInsert(memberFileDTO);
 		

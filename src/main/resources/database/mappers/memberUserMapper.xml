@@ -27,25 +27,20 @@
 		<result column="pw" property="pw"/>
 		<result column="name" property="name"/>
 		<result column="email" property="email"/>
-		<association property="memberFileDTO" javaType="MemberFileDTO" resultMap="memberFileResult">
-			<!-- <id column="num" property="num"/>
-			<result column="id" property="id"/>
-			<result column="filename" property="filename"/>
-			<result column="oriname" property="oriname"/> -->
+		<association property="memberFileDTO" javaType="MemberFileDTO" resultMap="memberFileResult"> <!-- 1:1 관계일 때 멤버변수 -->
 		</association>
 	</resultMap>
 	
 	<resultMap type="MemberFileDTO" id="memberFileResult">
 		<id column="num" property="num"/>
 		<result column="id" property="id"/>
-		<result column="filename" property="filename"/>
-		<result column="oriname" property="oriname"/>
+		<result column="filename" property="fileName"/>
+		<result column="oriname" property="oriName"/>
 	</resultMap>
 
 	<select id="getMemberLogin" parameterType="MemberDTO" resultMap="getMemberLoginResult">
 		select M.*, F.*
-		from member M
-		inner join memberfile F
+		from member M inner join memberfile F
 		on (M.id = F.id)
 		where M.id = #{id} and M.pw= #{pw}
 	</select>

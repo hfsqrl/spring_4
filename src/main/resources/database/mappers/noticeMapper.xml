@@ -14,13 +14,13 @@
 	</delete>
 	
 	<resultMap type="NoticeDTO" id="getOneResult">
-		<id column="n" property="num"/>
-		<result column="t" property="title"/>
-		<result column="writer" property="writer"/>
+		<id column="n" property="num"/>	<!-- id column은 primary key이기 때문에 id column을 쓴다. -->
+		<result column="t" property="title"/>	<!-- 아닌 것들은 다 result column을 쓴다 -->
+		<result column="writer" property="writer"/>	<!-- 나머지들도 result column을 써서 수동 맵핑을 한다 -->
 		<result column="contents" property="contents"/>
 	</resultMap>
 	
-	<select id="getOne" parameterType="NoticeDTO" resultMap="getOneResult">
+	<select id="getOne" parameterType="NoticeDTO" resultMap="getOneResult"> <!-- 쿼리의 결과 값을 resultMap으로 보낸다 -->
 		select num as n, title as t, writer, contents from notice where num = #{num}
 	</select>
 	

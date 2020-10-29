@@ -64,8 +64,8 @@ public class MemberUserService implements MemberService {
 			//fileSaver.saveCopy(file, photo);
 			MemberFileDTO memberFileDTO = new MemberFileDTO();
 			memberFileDTO.setId(memberDTO.getId());
-			memberFileDTO.setFileName(fileName);
-			memberFileDTO.setOriName(photo.getOriginalFilename());
+			memberFileDTO.setfileName(fileName);
+			memberFileDTO.setoriName(photo.getOriginalFilename());
 			
 			result = MemberFileDAO.setInsert(memberFileDTO);
 		}

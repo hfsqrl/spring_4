@@ -2,7 +2,7 @@ package com.kdy.s4.member;
 
 import com.kdy.s4.member.memberFile.MemberFileDTO;
 
-public class MemberDTO extends MemberFileDTO {
+public class MemberDTO {
 	
 	private long num;
 	private String id;
@@ -10,7 +10,6 @@ public class MemberDTO extends MemberFileDTO {
 	private String name;
 	private String email;
 	private MemberFileDTO memberFileDTO;
-	
 	
 	public MemberFileDTO getMemberFileDTO() {
 		return memberFileDTO;

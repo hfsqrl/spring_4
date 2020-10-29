@@ -4,8 +4,8 @@ public class MemberFileDTO {
 	
 	private long num;
 	private String id;
-	private String filename;
-	private String oriname;
+	private String fileName;
+	private String oriName;
 	
 	public long getNum() {
 		return num;
@@ -19,17 +19,17 @@ public class MemberFileDTO {
 	public void setId(String id) {
 		this.id = id;
 	}
-	public String getFileName() {
-		return filename;
+	public String getfileName() {
+		return fileName;
 	}
-	public void setFileName(String fileName) {
-		this.filename = fileName;
+	public void setfileName(String fileName) {
+		this.fileName = fileName;
 	}
-	public String getOriName() {
-		return oriname;
+	public String getoriName() {
+		return oriName;
 	}
-	public void setOriName(String oriName) {
-		this.oriname = oriName;
+	public void setoriName(String oriName) {
+		this.oriName = oriName;
 	}
 	
 	

@@ -119,7 +119,6 @@ public class MemberUserController {
 		ModelAndView mv = new ModelAndView();
 //		MemberDTO memberDTO = (MemberDTO)session.getAttribute("member");
 //		MemberFileDTO memberFileDTO = memberUserService.getOne(memberDTO);
-//		
 //		mv.addObject("file", memberFileDTO);
 		mv.setViewName("member/memberPage");
 		
