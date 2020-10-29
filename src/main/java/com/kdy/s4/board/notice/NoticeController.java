@@ -51,15 +51,15 @@ public class NoticeController {
 	}
 	
 	@PostMapping("noticeWrite")
-	public ModelAndView setInsert(BoardDTO boardDTO, MultipartFile photo, HttpSession session) throws Exception {
+	public ModelAndView setInsert(BoardDTO boardDTO, MultipartFile [] files) throws Exception {
+		
+		for(int i=0;i<files.length;i++) {
+			System.out.println(files[i].getOriginalFilename());
+		}
+		
 		ModelAndView mv = new ModelAndView();
 		
-		System.out.println(photo.getOriginalFilename()); // 올린 파일 원래 이름
-		System.out.println(photo.getName()); // 올린 파일의 유형
-		System.out.println(photo.getSize()); // 파일 크기
-		System.out.println(photo.getContentType()); // 파일 유형과 확장자
-		
-		int result = noticeService.setInsert(boardDTO, photo, session);
+		int result = noticeService.setInsert(boardDTO);
 		
 		String message = "write fail";
 		

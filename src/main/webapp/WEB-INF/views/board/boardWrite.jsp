@@ -7,14 +7,26 @@
 <meta charset="UTF-8">
 <title>write</title>
 <c:import url="../template/bootstrap.jsp"></c:import>
+<style type="text/css">
+	#f {
+		display : none;
+	}
+    .del {
+        color: red;
+        font-weight: bold;
+        cursor: pointer;
+    }
+</style>
+
 </head>
 <body>
 
 <c:import url="../template/header.jsp"></c:import>
 
-	<div class="container">
-	  <h2>${board} Write Form</h2>
-	  <form id="frm" action="./${board}Write" method="post">
+<div class="container">
+	<h2>${board} Write Form</h2>
+	
+	  <form id="frm" action="./${board}Write" method="post" enctype="multipart/form-data">
 	  
 	    <div class="form-group">
 	      <label for="title">Title:</label>
@@ -31,16 +43,48 @@
 	      <textarea class="form-control" rows="10" id="contents" name="contents"></textarea>
 	    </div>
 	    
-	    <div class="form-group">
-	      <label for="files">File:</label>
-	      <input type="file" class="form-control" id="file" name="files">
+	    <input type="button" value="FileAdd" id="fileAdd" class="btn btn-info">
+		
+		
+		<div id="files">
+	
+		</div> 
+		
+	 	<div class="form-group">
+		 	<label></label>
+		    <input type="button" class="btn btn-primary form-control" value="Write" id="btn">
+		    <button type="submit" class="btn btn-default form-control">Write</button>
 	    </div>
-	    
-	    <input type="button" class="btn btn-primary" value="Write" id="btn">
-	    <button type="submit" class="btn btn-default">Write</button>
 	  </form>
-	</div>
-<script type="text/javascript" src="../resources/js/boardWrite.js">
+  
+	  <div id="f">
+	  	  <div class="input-group">
+	        <input id="files" type="file" class="form-control" name="files">
+	        <span class="input-group-addon del">DEL</span>
+	      </div>
+	  </div>
+</div>
+
+<script type="text/javascript">
+
+	var count = 0
+	
+	$("#files").on("click", ".del", function() {
+		$(this).parent().remove()
+		count--
+	})
+	
+	$("#fileAdd").click(function(){
+		if(count<5) {
+			var f = $("#f").html().trim();
+			
+			$("#files").append(f);
+			count++
+		} else {
+			alert("최대 첨부파일은 5개")
+		}
+		
+	})
 	
 </script>
 </body>

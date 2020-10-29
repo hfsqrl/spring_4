@@ -15,7 +15,6 @@
  
 	<h1>Memo Page</h1>
 	
-	
 	<div>
 		<div class="form-group">
 	      <label for="writer">Writer:</label>
@@ -34,8 +33,7 @@
 	</div>
 	
 	<div id="result"></div>
-	
-	<button class="btn btn-primary del">더보기</button>
+	<button class="btn btn-danger del">더보기</button>
 	
 </div>
 
@@ -46,11 +44,9 @@
 		
 	$("#result").on("click", ".del", function(){
 		var num = $(this).attr("title")
-		alert(num)
 		
 		$.post("./memoDelete", {num:num}, function (data) {
 			data = data.trim()
-			alert(data)
 			if(data>0) {
 				getList()
 			} else {
@@ -66,7 +62,7 @@
 		var writer = $("#writer").val()
 		var contents = $("#contents").val()
 		
-		$.post("./memoWrite",{writer:writer, contents:contents}/*파라미터이름:변수명*/, function(result){
+		$.post("./memoWrite", {num:num}/*파라미터이름:변수명*/, function(result){
 			alert(result)
 			$("#writer").val('')
 			$("#contents").val('')
@@ -77,7 +73,6 @@
 	// ========================================
 		
 	function getList(){
-		var list = $("#btn").val()
 		$.get("./memoList", function(data){
 			$("#result").html(data)
 		})

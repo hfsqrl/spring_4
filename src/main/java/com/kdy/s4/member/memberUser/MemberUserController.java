@@ -115,12 +115,12 @@ public class MemberUserController {
 	
 	// getMemberPage
 	@GetMapping("memberPage")
-	public ModelAndView getMemberPage(HttpSession session) throws Exception {
+	public ModelAndView getMemberPage() throws Exception {
 		ModelAndView mv = new ModelAndView();
-		MemberDTO memberDTO = (MemberDTO)session.getAttribute("member");
-		MemberFileDTO memberFileDTO = memberUserService.getOne(memberDTO);
-		
-		mv.addObject("file", memberFileDTO);
+//		MemberDTO memberDTO = (MemberDTO)session.getAttribute("member");
+//		MemberFileDTO memberFileDTO = memberUserService.getOne(memberDTO);
+//		
+//		mv.addObject("file", memberFileDTO);
 		mv.setViewName("member/memberPage");
 		
 		return mv;
@@ -164,9 +164,8 @@ public class MemberUserController {
 			mv.addObject("msg", "login fail");
 			mv.addObject("path", "./memberLogin");
 			mv.setViewName("common/result");
-			
 		}
-		
+
 		return mv;
 	}
 
