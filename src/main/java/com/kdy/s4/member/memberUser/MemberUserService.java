@@ -27,6 +27,11 @@ public class MemberUserService implements MemberService {
 	@Autowired
 	private FileSaver fileSaver;
 	
+	// my page 정보를 보기 위해
+	public MemberFileDTO getOne(MemberDTO memberDTO) throws Exception {
+		return MemberFileDAO.getOne(memberDTO);
+	}
+	
 	@Override
 	public MemberDTO getMemberIdCheck(MemberDTO memberDTO) throws Exception {
 		// TODO Auto-generated method stub
@@ -44,28 +49,35 @@ public class MemberUserService implements MemberService {
 		if(!file2.exists()) {
 			file2.mkdirs();
 		}
+		
 		System.out.println(path);
 		File file = new File(path);
-
-		// 이름 > 중복될 수 없는 이름
-		String fileName = fileSaver.saveCopy(file, photo);
-
-		// hdd 저장
-		//fileSaver.saveCopy(file, photo);
-		MemberFileDTO memberFileDTO = new MemberFileDTO();
-		memberFileDTO.setId(memberDTO.getId());
-		memberFileDTO.setFileName(fileName);
-		memberFileDTO.setOriName(photo.getOriginalFilename());
-		
-		System.out.println("test"); // 중간 테스트
 		
 		int result = memberUserDAO.setMemberJoin(memberDTO);
 		
-		System.out.println(result); // 중간 테스트
+		// 이름 > 중복될 수 없는 이름
+		String fileName = "";
+		if(photo.getSize()!=0) {	// 
+			fileName = fileSaver.saveCopy(file, photo);
+			
+			// hdd 저장
+			//fileSaver.saveCopy(file, photo);
+			MemberFileDTO memberFileDTO = new MemberFileDTO();
+			memberFileDTO.setId(memberDTO.getId());
+			memberFileDTO.setFileName(fileName);
+			memberFileDTO.setOriName(photo.getOriginalFilename());
+			
+			result = MemberFileDAO.setInsert(memberFileDTO);
+		}
+
 		
-		result = MemberFileDAO.setInsert(memberFileDTO);
+		//System.out.println("test"); // 중간 테스트
 		
-		System.out.println("test : "+result); // 중간 테스트
+		
+		//System.out.println(result); // 중간 테스트
+		
+		
+		//System.out.println("test : "+result); // 중간 테스트
 		
 		return result;
 		

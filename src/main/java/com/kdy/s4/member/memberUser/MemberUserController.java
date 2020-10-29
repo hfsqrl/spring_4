@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kdy.s4.member.MemberDTO;
+import com.kdy.s4.member.memberFile.MemberFileDTO;
 
 @Controller
 @RequestMapping("/member/**")
@@ -50,15 +51,16 @@ public class MemberUserController {
 	@PostMapping("memberJoin")
 	public ModelAndView setMemberJoin(MemberDTO memberDTO, MultipartFile photo, HttpSession session) throws Exception {
 		ModelAndView mv = new ModelAndView();
-
+		
 		System.out.println(photo.getOriginalFilename());
 		System.out.println(photo.getName());
 		System.out.println(photo.getSize());
 		System.out.println(photo.getContentType());
-		
-//		System.out.println(memberDTO.getId());
-//		System.out.println(memberDTO.getPw());
-//		System.out.println(memberDTO.getName());
+		System.out.println("=================");
+		System.out.println(memberDTO.getId());
+		System.out.println(memberDTO.getPw());
+		System.out.println(memberDTO.getName());
+		System.out.println(memberDTO.getEmail());
 		
 		int result = memberUserService.setMemberJoin(memberDTO, photo, session);
 		
@@ -113,8 +115,12 @@ public class MemberUserController {
 	
 	// getMemberPage
 	@GetMapping("memberPage")
-	public ModelAndView getMemberPage() throws Exception {
+	public ModelAndView getMemberPage(HttpSession session) throws Exception {
 		ModelAndView mv = new ModelAndView();
+		MemberDTO memberDTO = (MemberDTO)session.getAttribute("member");
+		MemberFileDTO memberFileDTO = memberUserService.getOne(memberDTO);
+		
+		mv.addObject("file", memberFileDTO);
 		mv.setViewName("member/memberPage");
 		
 		return mv;
