@@ -5,6 +5,10 @@
     
     <mapper namespace="com.kdy.s4.board.qna.QnaDAO">
     
+    	<insert id="setInsertFile" parameterType="BoardFileDTO">
+    		insert into qnafile values(qna_seq.nextval, #{num}, #{fileName}, #{oriName})
+    	</insert>
+    
     	<select id="getList" parameterType="Pager" resultType="QnaDTO">
     		select * from
 			(select rownum R, N.* from 
@@ -43,7 +47,10 @@
 	</select>    	
     
     	<insert id="setInsert" parameterType="QnaDTO">
-    		insert into qna values(qna_seq.nextval, 
+    		<selectKey keyProperty="num" resultType="Long" order="BEFORE">
+    			select qna_seq.nextval from dual
+    		</selectKey>
+    		insert into qna values(#{num}, 
 			#{title}, #{writer}, #{contents}, sysdate, 0, qna_seq.currval, 0, 0)
 		</insert>
 		
@@ -63,8 +70,26 @@
 			step > (select step from qna where num=#{num})
 		</update>
 		
-		<select id="getOne" parameterType="QnaDTO" resultType="QnaDTO">
-			select * from qna where num = #{num}
+		<select id="getOne" parameterType="QnaDTO" resultMap="getOneResult">
+			select Q.*, QF.*
+			from qna Q left join qnafile QF
+			on (Q.num = QF.num)
+			where Q.num=#{num}
 		</select>
+		
+		<resultMap type="QnaDTO" id="getOneResult">
+			<id column="num" property="num"/>	<!-- id column은 primary key이기 때문에 id column을 쓴다. -->
+			<result column="title" property="title"/>	<!-- 아닌 것들은 다 result column을 쓴다 -->
+			<result column="writer" property="writer"/>	<!-- 나머지들도 result column을 써서 수동 맵핑을 한다 -->
+			<result column="contents" property="contents"/>
+			<result column="regDate" property="regDate"/>
+			<result column="hit" property="hit"/>
+			<collection property="boardFileDTOs" ofType="BoardFileDTO" javaType="java.util.List">
+				<id column="fileNum" property="fileNum"/>
+				<result column="fileName" property="fileName"/>
+				<result column="oriName" property="oriName"/>
+			</collection>
+	
+		</resultMap>
     
     </mapper>

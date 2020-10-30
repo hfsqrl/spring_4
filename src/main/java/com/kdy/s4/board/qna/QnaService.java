@@ -1,5 +1,6 @@
 package com.kdy.s4.board.qna;
 
+import java.io.File;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -10,6 +11,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.kdy.s4.board.BoardDTO;
 import com.kdy.s4.board.BoardService;
+import com.kdy.s4.board.file.BoardFileDTO;
+import com.kdy.s4.util.FileSaver;
 import com.kdy.s4.util.Pager;
 
 @Service
@@ -17,6 +20,8 @@ public class QnaService implements BoardService {
 	
 	@Autowired
 	private QnaDAO qnaDAO;
+	@Autowired
+	private FileSaver fileSaver;
 	
 	public int setReply(BoardDTO boardDTO) throws Exception {
 		int result = qnaDAO.setReplyUpdate(boardDTO);
@@ -26,9 +31,26 @@ public class QnaService implements BoardService {
 	}
 
 	@Override // write
-	public int setInsert(BoardDTO boardDTO) throws Exception {
-		// TODO Auto-generated method stub
-		return qnaDAO.setInsert(boardDTO);
+	public int setInsert(BoardDTO boardDTO, MultipartFile [] files, HttpSession session) throws Exception {
+		String path = session.getServletContext().getRealPath("/resources/upload/qna");
+		
+		File file = new File(path);
+		System.out.println(path);
+		
+		int result = qnaDAO.setInsert(boardDTO);
+		
+		for(MultipartFile multipartFile: files) {
+			if(multipartFile.getSize()!=0) {
+				String fileName = fileSaver.saveCopy(file, multipartFile);
+				BoardFileDTO boardFileDTO = new BoardFileDTO();
+				boardFileDTO.setFileName(fileName);
+				boardFileDTO.setOriName(multipartFile.getOriginalFilename());
+				boardFileDTO.setNum(boardDTO.getNum());
+				qnaDAO.setInsertFile(boardFileDTO);
+			}
+		}
+		
+		return result;
 	}
 
 	@Override

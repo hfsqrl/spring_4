@@ -13,6 +13,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.kdy.s4.board.BoardDTO;
 import com.kdy.s4.board.BoardService;
+import com.kdy.s4.board.file.BoardFileDTO;
+import com.kdy.s4.util.FileSaver;
 import com.kdy.s4.util.Pager;
 
 @Service
@@ -20,13 +22,44 @@ public class NoticeService implements BoardService {
 	
 	@Autowired
 	private NoticeDAO noticeDAO;
+	@Autowired
+	private FileSaver fileSaver;
+	
+	public int setInsertFile(BoardFileDTO boardFileDTO) throws Exception {
+		return noticeDAO.setInsertFile(boardFileDTO);
+	}
 
 	@Override
-	public int setInsert(BoardDTO boardDTO) throws Exception {
-		// TODO Auto-generated method stub
+	public int setInsert(BoardDTO boardDTO, MultipartFile [] files, HttpSession session) throws Exception {
+		// 파일을 hdd에 저장
+		String path = session.getServletContext().getRealPath("/resources/upload/notice");
+		
+		File file = new File(path);
+		System.out.println(path);
+		// sequence 번호 받아와야
+		//boardDTO.setNum(noticeDAO.getNum());
+		
+		// notice insert
+		int result = noticeDAO.setInsert(boardDTO);
+		System.out.println("num : "+boardDTO.getNum());
+		
+		// noticeFile insert
+		
+		for(MultipartFile multipartFile:files) {
+			if(multipartFile.getSize()!=0) {
+				String fileName = fileSaver.saveCopy(file, multipartFile);
+				
+				BoardFileDTO boardFileDTO = new BoardFileDTO();
+				boardFileDTO.setFileName(fileName);
+				boardFileDTO.setOriName(multipartFile.getOriginalFilename());
+				boardFileDTO.setNum(boardDTO.getNum());
+				
+				noticeDAO.setInsertFile(boardFileDTO);
+			}
+		}
 		
 		
-		return 0;//noticeDAO.setInsert(boardDTO);
+		return result;//return이 0이면 writeFail / noticeDAO.setInsert(boardDTO);
 	}
 		
 	@Override

@@ -20,6 +20,12 @@
   <h3>Writer : ${dto.writer}</h3>
   <h3>Contents : ${dto.contents}</h3>
   
+  <div>
+	  <c:forEach items="${dto.boardFileDTOs}" var="file">
+	  	<a href="./fileDown?fileName=${file.fileName}&oriName=${file.oriName}">${file.oriName}</a>
+	  </c:forEach>
+  </div>
+  
   <input type="button" title="${dto.num}" value="Delete" class="btn btn-warning" id="del">
   <input type="button" class="btn btn-primary" value="Update" id="update">
   <c:if test="${board ne 'notice'}">

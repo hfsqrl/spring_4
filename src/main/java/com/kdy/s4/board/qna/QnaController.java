@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kdy.s4.board.BoardDTO;
+import com.kdy.s4.board.file.BoardFileDTO;
 import com.kdy.s4.util.Pager;
 
 @Controller
@@ -21,6 +22,16 @@ public class QnaController {
 	
 	@Autowired
 	private QnaService qnaService;
+	
+	@GetMapping("fileDown")
+	public ModelAndView fileDown(BoardFileDTO boardFileDTO) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		
+		mv.addObject("board", "qna");
+		mv.addObject("fileDTO", boardFileDTO);
+		mv.setViewName("fileDown");
+		return mv;
+	}
 	
 	@PostMapping("qnaReply")
 	public ModelAndView setReply(BoardDTO boardDTO) throws Exception {
@@ -70,9 +81,14 @@ public class QnaController {
 	}
 	
 	@PostMapping("qnaWrite")
-	public ModelAndView setInsert(BoardDTO boardDTO) throws Exception {
+	public ModelAndView setInsert(BoardDTO boardDTO, MultipartFile [] files, HttpSession session) throws Exception {
+		
+		for(int i=0;i<files.length;i++) {
+			System.out.println(files[i].getOriginalFilename());
+		}
+		
 		ModelAndView mv = new ModelAndView();
-		int result = qnaService.setInsert(boardDTO);
+		int result = qnaService.setInsert(boardDTO, files, session);
 		
 		String message = "write fail";
 		

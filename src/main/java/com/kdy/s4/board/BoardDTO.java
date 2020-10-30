@@ -1,6 +1,9 @@
 package com.kdy.s4.board;
 
 import java.sql.Date;
+import java.util.List;
+
+import com.kdy.s4.board.file.BoardFileDTO;
 
 public class BoardDTO {
 	
@@ -11,6 +14,16 @@ public class BoardDTO {
 	private Date regDate;
 	private long hit;
 	
+	List<BoardFileDTO> boardFileDTOs; // 글 하나에 파일이 여러개 -> List
+	
+	
+	
+	public List<BoardFileDTO> getBoardFileDTOs() {
+		return boardFileDTOs;
+	}
+	public void setBoardFileDTOs(List<BoardFileDTO> boardFileDTOs) {
+		this.boardFileDTOs = boardFileDTOs;
+	}
 	public long getNum() {
 		return num;
 	}
