@@ -28,6 +28,8 @@ public class NoticeController {
 		
 		boardDTO = noticeService.getOne(boardDTO);
 		
+		mv.setViewName("board/boardUpdate");
+		
 		return mv;
 	}
 	
