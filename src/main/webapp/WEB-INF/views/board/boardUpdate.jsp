@@ -16,7 +16,7 @@
 <div class="container">
 	<h2>${board} Update Form</h2>
 	
-	<form id="frm" action="./${board}Write" method="post" enctype="multipart/form-data">
+	<form id="frm" action="./${board}Update" method="post" enctype="multipart/form-data">
 	
 	    <div class="form-group">
 	      <label for="title">Title:</label>
@@ -30,9 +30,7 @@
 	    
 		<div class="form-group">
 			<label for="contents">Contents:</label>
-			<textarea class="form-control" rows="10" id="contents" name="contents">
-				
-			</textarea>
+			<textarea class="form-control" rows="20" cols="30" id="contents" name="contents"></textarea>
 		</div>
 		
 	    <input type="button" value="FileAdd" id="fileAdd" class="btn btn-info">
@@ -48,6 +46,14 @@
 		    <button type="submit" class="btn btn-default form-control">Write</button>
 	    </div>
 	</form>
+  
+  <div id="f">
+  	  <div class="input-group">
+        <input id="files" type="file" class="form-control" name="files">
+        <span class="input-group-addon del">DEL</span>
+      </div>
+  </div>
+  
 </div>
 <script type="text/javascript">
 	

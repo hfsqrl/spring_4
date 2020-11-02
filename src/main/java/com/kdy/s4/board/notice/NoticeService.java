@@ -25,6 +25,8 @@ public class NoticeService implements BoardService {
 	@Autowired
 	private FileSaver fileSaver;
 	
+	
+	
 	public int setInsertFile(BoardFileDTO boardFileDTO) throws Exception {
 		return noticeDAO.setInsertFile(boardFileDTO);
 	}

@@ -22,6 +22,15 @@ public class NoticeController {
 	@Autowired
 	private NoticeService noticeService;
 	
+	@PostMapping("summernote")
+	public ModelAndView summernote(MultipartFile file, HttpSession session) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		
+		
+		
+		return mv;
+	}
+	
 	@GetMapping("noticeUpdate")
 	private ModelAndView setUpdate(BoardDTO boardDTO) throws Exception {
 		ModelAndView mv = new ModelAndView();

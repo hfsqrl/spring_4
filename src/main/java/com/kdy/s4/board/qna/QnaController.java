@@ -1,5 +1,6 @@
 package com.kdy.s4.board.qna;
 
+import java.io.File;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -23,15 +24,35 @@ public class QnaController {
 	@Autowired
 	private QnaService qnaService;
 	
+	@PostMapping("summernoteDelete")
+	public ModelAndView summernoteDelete(String file, HttpSession session) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		
+		boolean result = qnaService.summernoteDelete(file, session);
+		
+		mv.addObject("msg", result);
+		mv.setViewName("common/ajaxResult");
+		
+		return mv;
+	}
+	
 	@PostMapping("summernote")
 	public ModelAndView summernote(MultipartFile file, HttpSession session) throws Exception {
 		ModelAndView mv = new ModelAndView();
 		
 		String fileName = qnaService.summernote(file, session);
 		
-		System.out.println(fileName);
+		System.out.println("fileName : "+fileName);
 		
-		mv.addObject("msg", fileName);
+		String name = session.getServletContext().getContextPath()+File.separator;
+		// File.separator = \
+		System.out.println("1. "+name);		// 1. /s4\
+		name = name+"resources"+File.separator+"upload"+File.separator;
+		System.out.println("2. "+name);		// 2. /s4\resources\ upload\
+		name = name+"qna"+File.separator+fileName;
+		System.out.println("3. "+name);		// 3. /s4\resources\ upload\ qna \005a8241-aa7e-4f5d-a3a9-0842b5936798_iphone12.png
+		
+		mv.addObject("msg", name);
 		mv.setViewName("common/ajaxResult");
 		
 		return mv;

@@ -43,7 +43,7 @@
 	    
 	    <div class="form-group">
 	      <label for="contents">Contents:</label>
-	      <textarea class="form-control" rows="10" id="contents" name="contents"></textarea>
+	      <textarea class="form-control" rows="20" cols="30" id="contents" name="contents"></textarea>
 	    </div>
 	    
 	    <input type="button" value="FileAdd" id="fileAdd" class="btn btn-info">
@@ -75,23 +75,41 @@
 	$('#contents').summernote({
 		height: 300,
 		callbacks: {
-			onImageUpload: function(files, editor) {
+			onImageUpload: function(files, editor, welEditable) {
 				var formData = new FormData();		// 가상의 form 태그 작성
 				formData.append('file', files[0])	// 파라미터 이름 file
 				
 				$.ajax({
+					data: formData,
 					type: "POST",
 					url: "./summernote",
-					data: formData,
 					cache: false,
 					contentType: false,
 					enctype: "multipart/form-data",
 					processData: false,
-					success: function(data){
+						success: function(data){
+							data = data.trim()
+							$("#contents").summernote('editor.insertImage', data);
+						}
+				})
+			}, // upload End
+			
+			onMediaDelete: function(files) {
+				var fileName = $(files[0]).attr("src")
+				// fileName에서 파일명만 구해오기
+				fileName = fileName.substring(fileName.lastIndexOf("\\")+1)
+				
+				$.ajax ({
+					type: "POST",
+					url: "./summernoteDelete",
+					data: {
+						file: fileName
+					},
+					success: function(data) {
 						alert(data)
 					}
 				})
-			}
+			} // delete End
 		}
 		
 	});
