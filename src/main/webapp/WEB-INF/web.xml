@@ -20,7 +20,7 @@
     <servlet-name>appServlet</servlet-name>
     <url-pattern>/</url-pattern>
   </servlet-mapping>
-  
+
   <filter>
   	<filter-name>encode</filter-name>
   	<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
@@ -29,11 +29,13 @@
   		<param-value>UTF-8</param-value>
   	</init-param>
   </filter>
+  
   <filter-mapping>
   	<filter-name>encode</filter-name>
   	<url-pattern>/*</url-pattern>
-  </filter-mapping>
+  </filter-mapping>	
 
+  <filter>
     <display-name>TestFilter</display-name>
     <filter-name>TestFilter</filter-name>
     <filter-class>com.kdy.s4.filter.TestFilter</filter-class>
@@ -42,10 +44,11 @@
     <filter-name>TestFilter</filter-name>
     <url-pattern>/qna/*</url-pattern>
   </filter-mapping>
-  
-      <display-name>NoticeFilter</display-name>
+  <filter>
+    <display-name>NoticeFilter</display-name>
     <filter-name>NoticeFilter</filter-name>
     <filter-class>com.kdy.s4.filter.NoticeFilter</filter-class>
+    
   </filter>
   <filter-mapping>
     <filter-name>NoticeFilter</filter-name>

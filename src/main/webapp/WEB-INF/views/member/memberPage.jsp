@@ -16,16 +16,16 @@
 
 	<table class="table table-condensed">
 		<tr>
-			<th>Num</td>	<td>${member.num}</td>
+			<th>Num</th>	<td>${member.num}</td>
 		</tr>
 		<tr>
-			<th>Id</td>		<td>${member.id}</td>
+			<th>Id</th>		<td>${member.id}</td>
 		</tr>
 		<tr>
-			<th>Name</td>	<td>${member.name}</td>
+			<th>Name</th>	<td>${member.name}</td>
 		</tr>
 		<tr>
-			<th>Email</td>	<td>${member.email}</td>
+			<th>Email</th>	<td>${member.email}</td>
 		</tr>
 	</table>
 	
