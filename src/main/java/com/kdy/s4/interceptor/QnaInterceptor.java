@@ -2,10 +2,13 @@ package com.kdy.s4.interceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+
+import com.kdy.s4.member.MemberDTO;
 
 @Component
 public class QnaInterceptor extends HandlerInterceptorAdapter {
@@ -14,6 +17,9 @@ public class QnaInterceptor extends HandlerInterceptorAdapter {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		System.out.println("Controller 진입 전");
+		
+		
+		
 		return super.preHandle(request, response, handler);
 	}
 	

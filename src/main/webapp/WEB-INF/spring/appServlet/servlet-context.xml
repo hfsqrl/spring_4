@@ -37,8 +37,27 @@
 			<mapping path="/notice/*"/>
 			<beans:ref bean="qnaInterceptor"/>
 		</interceptor>
+		
+		<interceptor>
+			<mapping path="/qna/*"/>
+			<mapping path="/member/memberPage"/>
+			<exclude-mapping path="/qna/qnaList"/>
+			<beans:ref bean="qnaMemberInterceptor"/>
+		</interceptor>
+		
+		<interceptor>
+			<mapping path="/notice/*"/>
+			<exclude-mapping path="/notice/noticeList"/>
+			<exclude-mapping path="/notice/noticeSelect"/>
+			<beans:ref bean="noticeMemberInterceptor"/>
+		</interceptor>
+		
+		<interceptor>
+			<mapping path="/qna/qnaUpdate"/>
+			<beans:ref bean="qnaUpdateInterceptor"/>
+		</interceptor>
+		
 	</interceptors>
-	 
 	 
 	<context:component-scan base-package="com.kdy.s4" />
 	
