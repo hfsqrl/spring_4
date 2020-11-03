@@ -72,6 +72,7 @@
 
 	var count = 0
 	
+	
 	$('#contents').summernote({
 		height: 300,
 		callbacks: {
