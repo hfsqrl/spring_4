@@ -97,8 +97,9 @@ public class QnaController {
 		return mv;
 	}
 	
+
 	@GetMapping("qnaSelect")
-	public ModelAndView getOne(BoardDTO boardDTO) throws Exception {
+	public ModelAndView getOne(BoardDTO boardDTO)throws Exception{
 		ModelAndView mv = new ModelAndView();
 		boardDTO = qnaService.getOne(boardDTO);
 		
@@ -113,6 +114,7 @@ public class QnaController {
 		}
 		
 		return mv;
+				
 	}
 	
 	@GetMapping("qnaUpdate")
