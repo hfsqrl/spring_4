@@ -57,6 +57,7 @@ public class QnaDAO implements BoardDAO {
 	@Override
 	public BoardDTO getOne(BoardDTO boardDTO) throws Exception {
 		// TODO Auto-generated method stub
+		System.out.println("qna getOne DAO");
 		return sqlSession.selectOne(NAMESPACE+"getOne", boardDTO);
 	}
 

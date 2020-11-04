@@ -21,7 +21,7 @@
 		update member set name=#{name}, email=#{email} where id=#{id}
 	</update>
 	
-	<resultMap type="MemberUserDTO" id="getMemberLoginResult">
+	<resultMap type="MemberDTO" id="getMemberLoginResult">
 		<id column="num" property="num"/>
 		<result column="id" property="id"/>
 		<result column="pw" property="pw"/>
@@ -40,7 +40,7 @@
 
 	<select id="getMemberLogin" parameterType="MemberDTO" resultMap="getMemberLoginResult">
 		select M.*, F.*
-		from member M inner join memberfile F
+		from member M full join memberfile F
 		on (M.id = F.id)
 		where M.id = #{id} and M.pw= #{pw}
 	</select>

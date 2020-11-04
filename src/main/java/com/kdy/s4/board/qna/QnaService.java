@@ -105,6 +105,7 @@ public class QnaService implements BoardService {
 	@Override // select
 	public BoardDTO getOne(BoardDTO boardDTO) throws Exception {
 		// TODO Auto-generated method stub
+		System.out.println("qna getOne Service");
 		return qnaDAO.getOne(boardDTO);
 	}
 

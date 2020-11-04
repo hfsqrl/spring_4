@@ -101,6 +101,7 @@ public class QnaController {
 	@GetMapping("qnaSelect")
 	public ModelAndView getOne(BoardDTO boardDTO)throws Exception{
 		ModelAndView mv = new ModelAndView();
+		
 		boardDTO = qnaService.getOne(boardDTO);
 		
 		if(boardDTO != null) {
@@ -113,6 +114,7 @@ public class QnaController {
 			mv.addObject("path", "./qnaList");
 		}
 		
+		System.out.println("qna getOne controller");
 		return mv;
 				
 	}
