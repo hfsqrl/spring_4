@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -96,7 +97,6 @@ public class QnaController {
 		
 		return mv;
 	}
-	
 
 	@GetMapping("qnaSelect")
 	public ModelAndView getOne(BoardDTO boardDTO)throws Exception{
@@ -132,6 +132,7 @@ public class QnaController {
 	
 	@PostMapping("qnaWrite")
 	public ModelAndView setInsert(BoardDTO boardDTO, MultipartFile [] files, HttpSession session) throws Exception {
+		System.out.println("qna write");
 		
 		for(int i=0;i<files.length;i++) {
 			System.out.println(files[i].getOriginalFilename());
@@ -157,6 +158,7 @@ public class QnaController {
 	@GetMapping("qnaWrite")
 	public ModelAndView setInsert(Pager pager) throws Exception {
 		ModelAndView mv = new ModelAndView();
+		System.out.println("qna write");
 		
 		mv.addObject("board", "qna");
 		
@@ -169,6 +171,11 @@ public class QnaController {
 		ModelAndView mv = new ModelAndView();
 		List<BoardDTO> ar = qnaService.getList(pager);
 		
+		ar = null;
+		BoardDTO boardDTO = ar.get(0);
+		QnaDTO qnaDTO = (QnaDTO)boardDTO;
+		System.out.println(qnaDTO.getDepth());
+		
 		mv.addObject("board", "qna");
 		mv.addObject("list", ar);
 		mv.addObject("pager", pager);
@@ -178,5 +185,13 @@ public class QnaController {
 		return mv;		
 	}
 	
+//	@ExceptionHandler(NullPointerException.class)
+//	public ModelAndView ex1() {
+//		ModelAndView mv = new ModelAndView();
+//		System.out.println("null pointer exception");
+//		mv.setViewName("error/error_back");
+//		return mv;
+//	}
+//	
 
 }
