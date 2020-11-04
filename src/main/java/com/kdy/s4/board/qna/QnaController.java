@@ -171,10 +171,10 @@ public class QnaController {
 		ModelAndView mv = new ModelAndView();
 		List<BoardDTO> ar = qnaService.getList(pager);
 		
-		ar = null;
-		BoardDTO boardDTO = ar.get(0);
-		QnaDTO qnaDTO = (QnaDTO)boardDTO;
-		System.out.println(qnaDTO.getDepth());
+//		ar = null;
+//		BoardDTO boardDTO = ar.get(0);
+//		QnaDTO qnaDTO = (QnaDTO)boardDTO;
+//		System.out.println(qnaDTO.getDepth());
 		
 		mv.addObject("board", "qna");
 		mv.addObject("list", ar);
