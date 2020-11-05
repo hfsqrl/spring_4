@@ -28,6 +28,5 @@
 
 <a href="./cookie/makeCookie">Make Cookie</a>
 
-
 </body>
 </html>
