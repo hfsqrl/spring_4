@@ -33,7 +33,7 @@
 	
 	<select id="getOne" parameterType="NoticeDTO" resultMap="getOneResult"> <!-- 쿼리의 결과 값을 resultMap으로 보낸다 -->
 		select N.*, NF.*
-		from notice N left join noticefile NF
+		from notice N full join noticefile NF
 		on N.num = NF.num
 		where N.num='a'
 	</select>

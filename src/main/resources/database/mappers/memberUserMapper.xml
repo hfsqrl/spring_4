@@ -40,7 +40,7 @@
 
 	<select id="getMemberLogin" parameterType="MemberDTO" resultMap="getMemberLoginResult">
 		select M.*, F.*
-		from member M inner join memberfile F
+		from member M full join memberfile F
 		on (M.id = F.id)
 		where M.id = #{id} and M.pw= #{pw}
 	</select>

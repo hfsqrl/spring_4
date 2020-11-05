@@ -72,7 +72,7 @@
 		
 		<select id="getOne" parameterType="QnaDTO" resultMap="getOneResult">
 			select Q.*, QF.*
-			from qna Q left join qnafile QF
+			from qna Q full join qnafile QF
 			on (Q.num = QF.num)
 			where Q.num=#{num}
 		</select>
