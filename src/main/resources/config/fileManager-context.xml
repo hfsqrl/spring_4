@@ -34,11 +34,11 @@
 	</bean>
 	
 	<util:properties id="fileSave" location="classpath:properties/fileSave.properties"></util:properties>
-	
-	<!-- transaction 관리자 설정 -->
+<!-- 	
+	transaction 관리자 설정
 	<bean class="org.springframework.jdbc.datasource.DataSourceTransactionManager" id="transactionManager">
 		<property name="dataSource" ref="dataSource"></property>
 	</bean>
-
+ -->
 
 </beans>
