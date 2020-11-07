@@ -91,11 +91,6 @@
 			</c:if>
 		</c:otherwise>
 	</c:choose>
-	
-<div id="map" style="width:100%;height:400px;"></div>
-  
-</div>
-
 
 </body>
 </html>
